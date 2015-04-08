@@ -50,6 +50,7 @@ $(probe_coordinates): $(human_spec_sites)
 
 $(human_spec_sites):
 	tail -n+2 $(catalog_file) | \
+	grep -v "^X" | \
 	awk 'BEGIN {FS = "\t"; OFS = "\t"} \
 	     { if (($$21 == "A/A,A/A") && ($$23 > 0.9999)) print $$2, $$3 - 1, $$3 }' | \
 	uniq | \
