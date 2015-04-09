@@ -35,7 +35,7 @@ probes: $(DIRS) $(probe_sequences)
 	
 $(probe_sequences): $(probe_coordinates)
 	bedtools getfasta -fi $(ref_genome) -bed $< -fo $@_tmp -tab
-	sed 's/$$/CACTGCGG/' $@_tmp | tr ':-' '_' | gzip > $@
+	sed 's/$$/CACTGCGG/' $@_tmp | gzip > $@
 	rm $@_tmp
 
 $(probe_coordinates): $(human_spec_sites)
