@@ -1,15 +1,15 @@
-# default probe-design parameters (in case they are not supplied by the user)
+# Every SNC from the catalog of fixed modern human-derived changes will be
+# overlapped by two 52bp probes, one will carry a derived allele and second
+# will carry an ancestral (archaic-like) allele. Two more probes will be
+# flanking the site without any overlap.
 #
-#                                  SNC 
-#                34bp               |      17bp
-# <---------------------------------+---------------->
-#                  <----------------+--------------------------------->
-#                         17bp      |               34bp
-#
-probe_length := 52
-tiling_step := 17
-flank_length := 34
-
+#                              SNC
+#                     25bp      |      26bp
+#              <----------------D----------------->
+#              <----------------A----------------->
+# <----------------------------> <---------------------------->
+#              52bp                           52bp
+ 
 # input/output directories
 scripts_dir := ./scripts
 output_dir := ./output
