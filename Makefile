@@ -17,8 +17,6 @@ output_dir := ./output
 tmp_dir := ./tmp
 DIRS := $(output_dir) $(tmp_dir)
 
-script := $(scripts_dir)/calc_probe_coords.py
-
 # input data
 catalog_file := /mnt/454/Altaiensis/users/fernando/Combined_Catalog_newf/HumDerived_bothgq30/Genome_VEP.tsv
 ref_genome := /mnt/solexa/Genomes/hg19_evan/whole_genome.fa
@@ -26,7 +24,7 @@ chrom_info := $(tmp_dir)/chrom_info.txt
 
 # intermediate data
 probe_coordinates := $(tmp_dir)/probe_coordinates.bed
-human_spec_sites := $(tmp_dir)/snc_positions.bed.gz
+human_spec_sites := $(tmp_dir)/snc_positions.bed
 overlapping_probes := $(tmp_dir)/overlapping_probes.bed
 flanking_probes := $(tmp_dir)/flanking_probes.bed
 
@@ -47,13 +45,8 @@ $(probe_coordinates): $(overlapping_probes) $(flanking_probes)
 	sort -k1,1n -k2,2n $@_tmp > $@
 	rm $@_tmp
 
-$(overlapping_probes): $(human_spec_sites)
-	python3 $(script) \
-	    --in_file=$< \
-	    --out_file=$@ \
-	    --probe_length=$(probe_length) \
-	    --tiling_step=100 \
-	    --flank_length=26
+$(overlapping_probes): $(human_spec_sites) $(chrom_info)
+	bedtools slop -i $(human_spec_sites) -g $(chrom_info) -l 26 -r 25 > $@
 
 $(flanking_probes): $(human_spec_sites) $(chrom_info)
 	bedtools flank -i $(human_spec_sites) -g $(chrom_info) -b $(probe_length) > $@
@@ -63,8 +56,7 @@ $(human_spec_sites):
 	grep -v "^X" | \
 	awk 'BEGIN {FS = "\t"; OFS = "\t"} \
 	     { if (($$21 == "A/A,A/A") && ($$23 > 0.9999)) print $$2, $$3 - 1, $$3 }' | \
-	uniq | \
-	gzip > $@
+	uniq > $@
 
 # download table of chromosome lengths from UCSC
 $(chrom_info):
