@@ -52,7 +52,9 @@ $(final_sequences): $(derived_sequences) $(ancestral_sequences) $(flanking_seque
 
 # get sequences of overlapping probes carrying fixed human-derived variants
 $(derived_sequences): $(overlapping_coordinates)
-	bedtools getfasta -fi $(ref_genome) -bed $< -fo $@ -tab
+	bedtools getfasta -fi $(ref_genome) -bed $< -fo $@_tmp -tab
+	sed 's/\t/d\t/g' $@_tmp > $@
+	rm $@_tmp
 
 # get sequences of overlapping probes carrying ancestral variants of SNCs
 # that are fixed derived in present-day humans
@@ -69,7 +71,7 @@ $(ancestral_sequences): $(overlapping_coordinates)
 	paste $@_derived ancestral_states.txt | \
 		awk -vOFS="\t" '{ \
 		    $$2 = substr($$2, 1, 26) $$3 substr($$2, 28); \
-	            print $$1, $$2}' \
+	            print $$1"a", $$2}' \
 	        > $@
 	
 	rm $@_derived ancestral_states.txt
