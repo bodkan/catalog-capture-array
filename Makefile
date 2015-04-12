@@ -48,7 +48,8 @@ probes: $(DIRS) $(final_sequences)
 $(final_sequences): $(derived_sequences) $(ancestral_sequences) $(flanking_sequences)
 	cat $^ | \
 	    sort -k1,1V -k2,2n | \
-	    sed 's/$$/CACTGCGG/' > $@
+	    sed 's/$$/CACTGCGG/' | \
+	    uniq > $@
 
 # get sequences of overlapping probes carrying fixed human-derived variants
 $(derived_sequences): $(overlapping_coordinates)
