@@ -36,7 +36,7 @@ final_sequences := $(output_dir)/final_sequences.txt
 .PHONY: probes clean
 
 default:
-	@echo "Usage:\n\tmake probes snp_positions=<path to BED file with positions>\n"
+	@echo "Usage:\n\tmake probes snp_positions=<path to BED file with SNP positions>\n"
 
 probes: $(DIRS) $(final_sequences)
 	
