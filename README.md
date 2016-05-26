@@ -34,8 +34,8 @@ $> make
 Usage:
         make probes snp_positions=<input BED> ref_genome=<FASTA reference genome>
 ```
-The input BED file must be specified by setting the variable `snp_positions` while invoking
-`make`.
+The input BED file and the reference genome must be specified by assigning to variables `snp_positions`
+and `ref_genome`, respectively, while invoking `make`.
 
 ### Requirements
 
