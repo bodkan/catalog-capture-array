@@ -32,7 +32,7 @@ the reference and alternative alleles. Example:
 ```
 $> make
 Usage:
-        make probes snp_positions=<path to BED file with SNP positions>
+        make probes snp_positions=<input BED> ref_genome=<FASTA reference genome>
 ```
 The input BED file must be specified by setting the variable `snp_positions` while invoking
 `make`.
@@ -42,3 +42,4 @@ The input BED file must be specified by setting the variable `snp_positions` whi
 * Unix-like system with GNU Make, GNU coreutils, GNU awk and GNU grep (although I don't think there's a reason why this wouldn't work with non-GNU version of these).
 * curl
 * bedtools (developed and tested on v2.24.0).
+* reference genome in the FASTA format

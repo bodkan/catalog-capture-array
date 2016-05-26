@@ -17,8 +17,7 @@ output_dir := ./output
 tmp_dir := ./tmp
 DIRS := $(output_dir) $(tmp_dir)
 
-# input data
-ref_genome := /mnt/solexa/Genomes/hg19_evan/whole_genome.fa
+# lengths of chromosomes required for some bedtools utils
 chr_lengths := $(tmp_dir)/chr_lengths.txt
 
 # coordinates of overlapping and flanking probes
@@ -36,7 +35,7 @@ final_sequences := $(output_dir)/final_sequences.txt
 .PHONY: probes clean
 
 default:
-	@echo "Usage:\n\tmake probes snp_positions=<path to BED file with SNP positions>\n"
+	@echo "Usage:\n\tmake probes snp_positions=<input BED> ref_genome=<FASTA reference genome>\n"
 
 probes: $(DIRS) $(final_sequences)
 	
