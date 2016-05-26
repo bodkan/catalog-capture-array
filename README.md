@@ -36,3 +36,9 @@ Usage:
 ```
 The input BED file must be specified by setting the variable `snp_positions` while invoking
 `make`.
+
+### Requirements
+
+* Unix-like system with GNU Make, GNU coreutils, GNU awk and GNU grep (although I don't think there's a reason why this wouldn't work with non-GNU version of these).
+* curl
+* bedtools (developed and tested on v2.24.0).
